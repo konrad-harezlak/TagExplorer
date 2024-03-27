@@ -1,0 +1,22 @@
+.sort-container {
+  margin: 10px auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 20px;
+}
+.sort-container select{
+    border: 1px solid gray;
+    outline: none;
+}
+.sort-container label {
+  margin:10px;
+}
+
+.sort-container select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
