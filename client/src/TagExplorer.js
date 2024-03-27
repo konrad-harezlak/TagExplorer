@@ -12,7 +12,7 @@ const TagExplorer = () => {
         <TagsCountSelector />
         <SortSelector />
         {tags.map((tag) => {
-          return <Tag name={tag.name} postCount={tag.count} />;
+          return <Tag name={tag.name} key={tag.name} postCount={tag.count} />;
         })}
       </div>
     </div>

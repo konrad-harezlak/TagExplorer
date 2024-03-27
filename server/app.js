@@ -1,14 +1,13 @@
 const express = require('express');
-const router = express.Router();
+const routes = require('./routes')
 const app = express();
+const cors = require('cors');
 
-
-app.get('/', (req, res) => {
-  res.send('Witaj, świecie!');
-});
+app.use(cors());
+app.use('/', routes);
 
 
 const port = 4000;
 app.listen(port, () => {
-  console.log(`Serwer nasłuchuje na porcie ${port}`);
+  console.log(`Serwer listen on port: ${port}`);
 });

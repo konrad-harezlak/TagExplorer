@@ -1,23 +1,10 @@
-.DS_Store
-Thumbs.db
+# General
+node_modules/
+build/
 
-.idea/
-.vscode/
+# Specific to client
+/client/node_modules/
+/client/build/
 
-.env
-
-/build
-/node_modules
-
-*.log
-npm-debug.log*
-
-
-*.iml
-*.ipr
-*.iws
-*.swp
-
-.DS_Store?
-Icon?
-ehthumbs.db
+# Specific to server
+/server/node_modules/

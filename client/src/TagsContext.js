@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const TagsContext = createContext();
 
@@ -6,19 +6,24 @@ export const TagsProvider = ({ children }) => {
   const [tags, setTags] = useState([]);
   useEffect(() => {
     const fetchTags = async (order, sort) => {
-      try {
-        const response = await fetch(`https://api.stackexchange.com/docs/tags#order=${order}&sort=${sort}&filter=default&site=stackoverflow`);
-        const data = await response.json();
-        console.log(data);
-        setTags(data.tags);
-      } catch (error) {
-        console.error('Błąd podczas pobierania tagów:', error);
-      }
+      await fetch(`http://localhost:4000/fetchTags?order=${order}&sort=${sort}`,{method: 'GET'})
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setTags(data.items);
+        })
+        .catch((error) => {
+          console.error("Error occured while fetching tags: ", error);
+        });
     };
-    const defaultOrder = 'desc';
-    const defaultSort = 'popular';
+    const defaultOrder = "desc";
+    const defaultSort = "popular";
 
-    fetchTags(defaultOrder,defaultSort);
+    fetchTags(defaultOrder, defaultSort);
   }, []);
 
   return (
@@ -31,7 +36,7 @@ export const TagsProvider = ({ children }) => {
 export const useTags = () => {
   const context = useContext(TagsContext);
   if (!context) {
-    throw new Error('useTags must be used within a TagsProvider');
+    throw new Error("useTags must be used within a TagsProvider");
   }
   return context;
 };
