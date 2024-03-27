@@ -4,21 +4,23 @@ const TagsContext = createContext();
 
 export const TagsProvider = ({ children }) => {
   const [tags, setTags] = useState([]);
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [sortField, setSortField] = useState("popular");
+  const [pageSize, setPageSize] = useState(10); 
 
-  const fetchTags = async (order, sort) => {
+  const fetchTags = async (order, sort, pageSize) => {
     try {
       const response = await fetch(
-        
-        `http://localhost:4000/fetchTags?order=${order}&sort=${sort}`,
+        `http://localhost:4000/fetchTags?pageSize=${pageSize}&order=${order}&sort=${sort}`,
         {
           method: "GET",
         }
       );
-      console.log(order,sort)
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
+      console.log(data)
       setTags(data.items);
     } catch (error) {
       console.error("Error occurred while fetching tags: ", error);
@@ -26,17 +28,19 @@ export const TagsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const defaultOrder = "desc";
-    const defaultSort = "popular";
-    fetchTags(defaultOrder, defaultSort);
-  }, []);
-
-  const contextValue = { tags, fetchTags };
-
+    fetchTags(sortOrder, sortField, pageSize);
+  }, [sortOrder, sortField, pageSize]);
+   const contextValue = {
+    tags,
+    sortOrder,
+    sortField,
+    pageSize,
+    setSortOrder,
+    setSortField,
+    setPageSize,
+  }; 
   return (
-    <TagsContext.Provider value={contextValue}>
-      {children}
-    </TagsContext.Provider>
+    <TagsContext.Provider value={contextValue}>{children}</TagsContext.Provider>
   );
 };
 

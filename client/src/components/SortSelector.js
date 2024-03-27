@@ -1,27 +1,21 @@
-// SortSelector.js
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useTags } from "../TagsContext";
+import './sortSelector.css'; // Import CSS
 
 const SortSelector = () => {
-  const { fetchTags } = useTags();
-  const [sortOrder, setSortOrder] = useState("desc");
-  const [sortField, setSortField] = useState("popular");
+  const { sortField, setSortField, sortOrder, setSortOrder } = useTags();
 
   const handleSortChange = (e) => {
     const { name, value } = e.target;
     if (name === "sortOrder") {
-      console.log(name + " sort order" + value);
       setSortOrder(value);
     } else if (name === "sortField") {
-      console.log(name + " sort field" + value);
       setSortField(value);
     }
   };
-  useEffect(() => {
-    fetchTags(sortOrder, sortField);
-  }, [sortOrder, sortField]);
+
   return (
-    <div>
+    <div className="sort-container">
       <label htmlFor="sortField">Pole sortowania: </label>
       <select
         id="sortField"

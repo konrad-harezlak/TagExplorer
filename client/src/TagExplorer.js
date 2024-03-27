@@ -5,7 +5,7 @@ import TagsCountSelector from "./components/TagsCountSelector";
 import SortSelector from "./components/SortSelector";
 
 const TagExplorer = () => {
-  const { tags } = useTags();
+  const { tags} = useTags();
 
   return (
     <div className="mainContainer">

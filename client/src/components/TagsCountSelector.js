@@ -1,18 +1,26 @@
-import React from 'react';
+import React from "react";
+import { useTags } from "../TagsContext";
+import TextField from "@mui/material/TextField";
+import './tagsCountSelector.css'; 
 
-const TagsCountSelector = ({ pageSize, onPageSizeChange }) => {
+const TagsCountSelector = () => {
+  const { pageSize, setPageSize } = useTags();
+
   const handlePageSizeChange = (e) => {
-    onPageSizeChange(e.target.value);
+    setPageSize(e.target.value);
   };
 
   return (
-    <div>
+    <div className="count-container">
       <label htmlFor="pageSize">Liczba elementów na stronie: </label>
-      <input 
-        type="number" 
-        id="pageSize" 
-        value={pageSize} 
-        onChange={handlePageSizeChange} 
+      <TextField
+        id="pageSize"
+        type="number"
+        value={pageSize}
+        onChange={handlePageSizeChange}
+        variant="outlined" 
+        InputLabelProps={{ shrink: true }} 
+        inputProps={{ min: 1 }}
       />
     </div>
   );
