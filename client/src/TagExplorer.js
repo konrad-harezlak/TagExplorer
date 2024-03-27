@@ -6,6 +6,7 @@ import SortSelector from "./components/SortSelector";
 
 const TagExplorer = () => {
   const { tags } = useTags();
+
   return (
     <div className="mainContainer">
       <div className="tagsContainer">
